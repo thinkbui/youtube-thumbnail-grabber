@@ -1,7 +1,7 @@
 const singles = ["0"];
 const composites = ["default","1","2","3"];
 const c_prefixes = ["","mq","hq","sd","maxres"];
-const extensions = ["jpg"];
+const extensions = [{"extension":"jpg","base":"https://i.ytimg.com/vi"},{"extension":"webp","base":"https://i.ytimg.com/vi_webp"}];
 
 const s_table = document.getElementById("singles");
 const c_table = document.getElementById("composites");
@@ -16,28 +16,37 @@ function buildTables() {
 function buildSinglesRow() {
   let row = document.createElement("tr");
   for(let i=0;i<singles.length;i++){
-    row.append(buildCell(singles[i],""));
+    for(let j=0;j<extensions.length;j++){
+      row.append(buildCell(singles[i],"",extensions[j]["extension"]));
+    }
   }
   s_table.append(row);
 }
 
 function buildCompositesTable() {
   for(let i=0;i<composites.length;i++){
-    buildCompositesRow(composites[i]);
+    buildCompositesRows(composites[i]);
   }
 }
 
-function buildCompositesRow(name) {
-  let row = document.createElement("tr");
+function buildCompositesRows(name) {
+  let rows = []
+  for(let i=0;i<extensions.length;i++){
+    rows.push(document.createElement("tr"));
+  }
   for(let i=0;i<c_prefixes.length;i++){
-    row.append(buildCell(name,c_prefixes[i]));
+    for(let j=0;j<extensions.length;j++){
+      rows[j].append(buildCell(name,c_prefixes[i],extensions[j]["extension"]));
+    }
   }
-  c_table.append(row);
+  for(let i=0;i<rows.length;i++){
+    c_table.append(rows[i]);
+  }
 }
 
-function buildCell(name, prefix) {
+function buildCell(name, prefix, extension) {
   let cell = document.createElement("td");
-  cell.textContent = `${prefix}${name}.${extensions[0]}`;
+  cell.textContent = `${prefix}${name}.${extension}`;
   return cell;
 }
 
