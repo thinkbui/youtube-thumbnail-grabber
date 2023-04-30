@@ -28,7 +28,12 @@ function buildCompositesTable() {
 }
 
 function buildCompositesRows(name) {
-  let rows = extensions.map(function(){return document.createElement("tr")});
+  let rows = []
+  for(let i=0;i<extensions.length;i++){
+    let row = document.createElement("tr");
+    row.setAttribute("data-base", extensions[i]["base"]);
+    rows.push(row);
+  }
   for(let i=0;i<c_prefixes.length;i++){
     for(let j=0;j<extensions.length;j++){
       rows[j].append(buildCell(name,c_prefixes[i],extensions[j]["extension"]));
