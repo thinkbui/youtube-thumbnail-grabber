@@ -24,24 +24,17 @@ function buildSinglesRow() {
 }
 
 function buildCompositesTable() {
-  for(let i=0;i<composites.length;i++){
-    buildCompositesRows(composites[i]);
-  }
+  composites.forEach(function(composite){buildCompositesRows(composite)});
 }
 
 function buildCompositesRows(name) {
-  let rows = []
-  for(let i=0;i<extensions.length;i++){
-    rows.push(document.createElement("tr"));
-  }
+  let rows = extensions.map(function(){return document.createElement("tr")});
   for(let i=0;i<c_prefixes.length;i++){
     for(let j=0;j<extensions.length;j++){
       rows[j].append(buildCell(name,c_prefixes[i],extensions[j]["extension"]));
     }
   }
-  for(let i=0;i<rows.length;i++){
-    c_table.append(rows[i]);
-  }
+  rows.forEach(function(row){c_table.append(row)});
 }
 
 function buildCell(name, prefix, extension) {
