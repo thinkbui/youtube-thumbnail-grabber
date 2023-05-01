@@ -49,6 +49,8 @@ function buildCell(name, prefix, extension) {
   let cell_name = buildCellName(name, prefix, extension);
   cell.append(buildCellHead(name, prefix, extension));
   cell.append(buildCellImage());
+  cell.setAttribute("data-name",  cell_name);
+  cell.classList.add("tn-cell");
   return cell;
 }
 
@@ -67,6 +69,29 @@ function buildCellImage() {
 
 function buildCellName(name, prefix, extension) {
   return `${prefix}${name}.${extension}`
+}
+
+function updateAllImages(){
+  let tds = document.getElementsByClassName("tn-cell");
+  // tds.forEach(function(td){ updateCellImage(td) });
+  for(let i=0;i<tds.length;i++){
+    updateCellImage(tds[i]);
+  }
+}
+
+function updateCellImage(td) {
+  img = td.getElementsByClassName("cell_image")[0];
+  img.src = getCellImageUrl(td);
+}
+
+function getCellImageUrl(td) {
+  let base = getCellBase(td);
+  let cell_name = td.dataset["name"];
+  return `${base}/${youtube_id}/${cell_name}`
+}
+
+function getCellBase(td) {
+  return td.dataset["base"] || td.parentElement.dataset["base"];
 }
 
 buildTables();
