@@ -50,6 +50,7 @@ function buildCell(name, prefix, extension) {
   let cell_name = buildCellName(name, prefix, extension);
   cell.append(buildCellHead(name, prefix, extension));
   cell.append(buildCellImage());
+  cell.append(buildCellCheckbox());
   cell.setAttribute("data-name",  cell_name);
   cell.classList.add("tn-cell");
   return cell;
@@ -68,13 +69,21 @@ function buildCellImage() {
   return img;
 }
 
+function buildCellCheckbox() {
+  let chkbx = document.createElement("input");
+  chkbx.setAttribute("type", "checkbox");
+  chkbx.setAttribute("name", "cell_cb");
+  chkbx.setAttribute("onclick","cb_click()");
+  chkbx.classList.add("cell_cb");
+  return chkbx;
+}
+
 function buildCellName(name, prefix, extension) {
   return `${prefix}${name}.${extension}`
 }
 
 function updateAllImages(){
   let tds = document.getElementsByClassName("tn-cell");
-  // tds.forEach(function(td){ updateCellImage(td) });
   for(let i=0;i<tds.length;i++){
     updateCellImage(tds[i]);
   }
@@ -97,10 +106,21 @@ function getCellBase(td) {
 
 let youtube_id_form = document.getElementById("youtube_id_form");
 let youtube_id_form_input = document.getElementById("form_input");
-youtube_id_form.addEventListener('submit', (event) => {
+function test(event) {
   event.preventDefault();
   youtube_id = youtube_id_form_input.value;
   updateAllImages();
-});
+}
+
+function cb_click() {
+  var chkbxs = document.querySelectorAll('input[name=cell_cb]:checked');
+  let output_string = "";
+  chkbxs.forEach(function(chkbx){ output_string += getDownloadCommand(chkbx.parentNode) });
+  console.log(output_string);
+}
+
+function getDownloadCommand(cell) {
+  return `${cell.dataset["name"]}\n`
+}
 
 buildTables();
