@@ -11,6 +11,7 @@ let youtube_id = "Y7dpJ0oseIA";
 function buildTables() {
   buildSinglesRow();
   buildCompositesTable();
+  updateAllImages();
 }
 
 function buildSinglesRow() {
@@ -93,5 +94,13 @@ function getCellImageUrl(td) {
 function getCellBase(td) {
   return td.dataset["base"] || td.parentElement.dataset["base"];
 }
+
+let youtube_id_form = document.getElementById("youtube_id_form");
+let youtube_id_form_input = document.getElementById("form_input");
+youtube_id_form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  youtube_id = youtube_id_form_input.value;
+  updateAllImages();
+});
 
 buildTables();
