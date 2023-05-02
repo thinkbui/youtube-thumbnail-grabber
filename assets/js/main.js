@@ -121,7 +121,14 @@ function cb_click() {
 }
 
 function getDownloadCommand(cell) {
-  return `${cell.dataset["name"]}\n`
+  return `curl -o ${downloadFileName(cell.dataset["name"])} ${getCellImageUrl(cell)}\n`
+}
+
+function downloadFileName(name) {
+  let split_name = name.split(".");
+  let shortname = split_name.slice(0,split_name.length-1).join(".");
+  let ext = split_name[split_name.length-1];
+  return `"YouTube ${youtube_id} ${shortname}.${ext}"`
 }
 
 buildTables();
