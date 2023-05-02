@@ -6,6 +6,9 @@ const extensions = [{"extension":"jpg","base":"https://i.ytimg.com/vi"},{"extens
 const s_table = document.getElementById("singles");
 const c_table = document.getElementById("composites");
 
+let youtube_id_form = document.getElementById("youtube_id_form");
+let youtube_id_form_input = document.getElementById("form_input");
+let download_list = document.getElementById("download_list");
 let youtube_id = "Y7dpJ0oseIA";
 
 function buildTables() {
@@ -104,9 +107,7 @@ function getCellBase(td) {
   return td.dataset["base"] || td.parentElement.dataset["base"];
 }
 
-let youtube_id_form = document.getElementById("youtube_id_form");
-let youtube_id_form_input = document.getElementById("form_input");
-function test(event) {
+function form_update(event) {
   event.preventDefault();
   youtube_id = youtube_id_form_input.value;
   updateAllImages();
@@ -116,7 +117,7 @@ function cb_click() {
   var chkbxs = document.querySelectorAll('input[name=cell_cb]:checked');
   let output_string = "";
   chkbxs.forEach(function(chkbx){ output_string += getDownloadCommand(chkbx.parentNode) });
-  console.log(output_string);
+  download_list.value = output_string;
 }
 
 function getDownloadCommand(cell) {
