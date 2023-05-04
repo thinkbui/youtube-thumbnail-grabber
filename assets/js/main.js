@@ -76,7 +76,7 @@ function buildCellCheckbox() {
   let chkbx = document.createElement("input");
   chkbx.setAttribute("type", "checkbox");
   chkbx.setAttribute("name", "cell_cb");
-  chkbx.setAttribute("onclick","cb_click()");
+  chkbx.setAttribute("onclick","cbClick()");
   chkbx.classList.add("cell_cb");
   return chkbx;
 }
@@ -107,14 +107,14 @@ function getCellBase(td) {
   return td.dataset["base"] || td.parentElement.dataset["base"];
 }
 
-function form_update(event) {
+function formSubmit(event) {
   event.preventDefault();
   youtube_id = youtube_id_form_input.value;
   updateAllImages();
   clearDownloadList();
 }
 
-function cb_click() {
+function cbClick() {
   var chkbxs = document.querySelectorAll('input[name=cell_cb]:checked');
   let output_string = "";
   chkbxs.forEach(function(chkbx){ output_string += getDownloadCommand(chkbx.parentNode) });
