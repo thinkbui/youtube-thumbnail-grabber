@@ -123,8 +123,10 @@ function getCellBase(td) {
 function formSubmit(event) {
   event.preventDefault();
   youtube_id = youtube_id_form_input.value;
-  updateAllImages();
-  clearDownloadList();
+  if(youtube_id) {
+    updateAllImages();
+    clearDownloadList();
+  }
 }
 
 function formReset(event) {
@@ -156,8 +158,18 @@ function downloadFileName(name) {
 }
 
 function copyToClipboard() {
-  download_list.select();
-  document.execCommand("copy");
+  if (youtube_id && download_list.value) {
+    if(navigator.clipboard) {
+      navigator.clipboard.writeText(download_list.value)
+        .then(function() {console.log("Successfully copied to clipboard.")})
+        .catch(function() {console.log("Could not copy.")});
+    } else {
+      download_list.select();
+      document.execCommand("copy");
+    }
+  } else {
+    console.log("Nothing to copy.");
+  }
 }
 
 function clearDownloadList() {
