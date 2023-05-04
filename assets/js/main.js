@@ -5,16 +5,16 @@ const extensions = [{"extension":"jpg","base":"https://i.ytimg.com/vi"},{"extens
 
 const s_table = document.getElementById("singles");
 const c_table = document.getElementById("composites");
+const blank_img_url = "./assets/images/blank.jpg";
 
 let youtube_id_form = document.getElementById("youtube_id_form");
 let youtube_id_form_input = document.getElementById("form_input");
 let download_list = document.getElementById("download_list");
-let youtube_id = "Y7dpJ0oseIA";
+let youtube_id = "";
 
 function buildTables() {
   buildSinglesRow();
   buildCompositesTable();
-  updateAllImages();
 }
 
 function buildSinglesRow() {
@@ -68,6 +68,7 @@ function buildCellHead(name, prefix, extension) {
 
 function buildCellImage() {
   let img = document.createElement("img");
+  img.src = blank_img_url;
   img.classList.add("cell_image");
   return img;
 }
@@ -92,9 +93,21 @@ function updateAllImages(){
   }
 }
 
+function clearAllImages(){
+  let tds = document.getElementsByClassName("tn-cell");
+  for(let i=0;i<tds.length;i++){
+    clearCellImage(tds[i]);
+  }
+}
+
 function updateCellImage(td) {
   img = td.getElementsByClassName("cell_image")[0];
   img.src = getCellImageUrl(td);
+}
+
+function clearCellImage(td) {
+  img = td.getElementsByClassName("cell_image")[0];
+  img.src = blank_img_url;
 }
 
 function getCellImageUrl(td) {
@@ -114,11 +127,21 @@ function formSubmit(event) {
   clearDownloadList();
 }
 
+function formReset(event) {
+  event.preventDefault();
+  youtube_id = "";
+  youtube_id_form_input.value = "";
+  clearAllImages();
+  clearDownloadList();
+}
+
 function cbClick() {
-  var chkbxs = document.querySelectorAll('input[name=cell_cb]:checked');
-  let output_string = "";
-  chkbxs.forEach(function(chkbx){ output_string += getDownloadCommand(chkbx.parentNode) });
-  download_list.value = output_string;
+  if(youtube_id) {
+    var chkbxs = document.querySelectorAll('input[name=cell_cb]:checked');
+    let output_string = "";
+    chkbxs.forEach(function(chkbx){ output_string += getDownloadCommand(chkbx.parentNode) });
+    download_list.value = output_string;
+  }
 }
 
 function getDownloadCommand(cell) {
