@@ -111,6 +111,7 @@ function form_update(event) {
   event.preventDefault();
   youtube_id = youtube_id_form_input.value;
   updateAllImages();
+  clearDownloadList();
 }
 
 function cb_click() {
@@ -134,6 +135,12 @@ function downloadFileName(name) {
 function copyToClipboard() {
   download_list.select();
   document.execCommand("copy");
+}
+
+function clearDownloadList() {
+  download_list.value = ""
+  var chkbxs = document.querySelectorAll('input[name=cell_cb]:checked');
+  chkbxs.forEach(function(chkbx) {chkbx.checked = false})
 }
 
 buildTables();
