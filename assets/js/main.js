@@ -131,4 +131,9 @@ function downloadFileName(name) {
   return `"YouTube ${youtube_id} ${shortname}.${ext}"`
 }
 
+function copyToClipboard() {
+  download_list.select();
+  document.execCommand("copy");
+}
+
 buildTables();

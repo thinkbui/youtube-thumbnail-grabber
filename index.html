@@ -15,17 +15,29 @@
     <p>This is a crude utility I've built to easily download YouTube video thumbnails.  This is meant for my own purposes, but you're welcome to use it yourself.</p>
   </article>
   <section>
+    <h2>YouTube ID</h2>
+    <p>Enter the video's YouTube Id in the text box below.  You can easily find it in the video's URL (https://www.youtube.com/watch?v=[ID HERE] or https://youtu.be/[ID HERE])</p>
     <form id="youtube_id_form">
       <label for="form_input">YouTube ID:</label><br>
       <input type="text" id="form_input" name="form_input"><br>
       <input type="submit" value="Submit" onclick="form_update(event)">
     </form>
+  </section>
+  <section>
+    <h2>Thumbnails</h2>
     <table id="singles">
       <caption>SINGLES</caption>
     </table>
     <table id="composites">
       <caption>COMPOSITES</caption>
     </table>
+  </section>
+  <section>
+    <h2>Download List</h2>
+    <p>
+      curl commands to download selecte thumbnails
+      <button onclick="copyToClipboard()">Copy to Clipboard</button>
+    </p>
     <textarea id="download_list" name="download_list" rows="4" cols="50" placeholder="Download list" readonly></textarea>
   </section>
   <footer>
