@@ -52,7 +52,7 @@ function buildCell(name, prefix, extension) {
   let cell = document.createElement("td");
   let cell_name = buildCellName(name, prefix, extension);
   cell.append(buildCellHead(name, prefix, extension));
-  cell.append(buildCellImage());
+  cell.append(buildCellLink());
   cell.append(buildCellCheckbox());
   cell.setAttribute("data-name",  cell_name);
   cell.classList.add("tn-cell");
@@ -64,6 +64,15 @@ function buildCellHead(name, prefix, extension) {
   cell_hd.textContent = buildCellName(name, prefix, extension);
   cell_hd.classList.add("cell_hd");
   return cell_hd;
+}
+
+function buildCellLink() {
+  let a = document.createElement("a");
+  a.append(buildCellImage());
+  a.target = "_blank";
+  a.rel = "noopener noreferrer";
+  a.classList.add("cell_link");
+  return a;
 }
 
 function buildCellImage() {
@@ -89,6 +98,7 @@ function buildCellName(name, prefix, extension) {
 function updateAllImages(){
   let tds = document.getElementsByClassName("tn-cell");
   for(let i=0;i<tds.length;i++){
+    updateCellLink(tds[i]);
     updateCellImage(tds[i]);
   }
 }
@@ -96,13 +106,24 @@ function updateAllImages(){
 function clearAllImages(){
   let tds = document.getElementsByClassName("tn-cell");
   for(let i=0;i<tds.length;i++){
+    clearCellLink(tds[i]);
     clearCellImage(tds[i]);
   }
+}
+
+function updateCellLink(td) {
+  let a = td.getElementsByClassName("cell_link")[0];
+  a.href = getCellImageUrl(td);
 }
 
 function updateCellImage(td) {
   img = td.getElementsByClassName("cell_image")[0];
   img.src = getCellImageUrl(td);
+}
+
+function clearCellLink(td) {
+  let a = td.getElementsByClassName("cell_link")[0];
+  a.href = "";
 }
 
 function clearCellImage(td) {
