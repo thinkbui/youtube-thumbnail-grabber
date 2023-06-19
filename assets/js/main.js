@@ -123,7 +123,7 @@ function updateCellImage(td) {
 
 function clearCellLink(td) {
   let a = td.getElementsByClassName("cell_link")[0];
-  a.href = "";
+  a.removeAttribute("href");
 }
 
 function clearCellImage(td) {
