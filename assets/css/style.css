@@ -16,6 +16,11 @@ td {
   text-align: center;
 }
 
+.cell_link::after {
+  content: "\a";
+  white-space: pre;
+}
+
 .cell_image {
   width: 100px;
   height: 100px;
