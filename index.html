@@ -18,6 +18,8 @@
     <h2>YouTube ID</h2>
     <p>Enter the video's YouTube Id in the text box below.  You can easily find it in the video's URL (https://www.youtube.com/watch?v=[ID HERE]&t=XXXX or https://youtu.be/[ID HERE]?t=XXXX)</p>
     <p>If you need more help, this <a href="https://commentpicker.com/youtube-video-id.php" target="_blank" rel="noopener noreferrer">Comment Picker utility</a> is very useful.  Integrating something similar on this page is planned for the future.</p>
+    <p>Once you enter in the ID and submit the form, the thumbnails will appear in the tables below.  You can click on any of them to view in a new browser tab or select them using the checkboxes.  The latter will populate the text box at the very bottom with download commands you can run from the command line.</p>
+    <p>NOTE: The download commands are intended to be run through a command line such as bash or Windows Command Prompt.  You will also need to have cURL installed in order to run these commands (All modern systems I've worked with have it by default).</p>
     <p>NOTE: This is just for grabbing the thumbnails for things like blog posts and archival purposes.  If you wish to download the videos themselves, there are plenty of options you can find by Googling for them.</p>
     <form id="youtube_id_form">
       <label for="form_input">YouTube ID:</label><br>
@@ -38,7 +40,7 @@
   <section>
     <h2>Download List</h2>
     <p>
-      curl commands to download selecte thumbnails
+      cURL commands to download selecte thumbnails
       <button onclick="copyToClipboard()">Copy to Clipboard</button>
     </p>
     <textarea id="download_list" name="download_list" rows="4" cols="50" placeholder="Download list" readonly></textarea>
